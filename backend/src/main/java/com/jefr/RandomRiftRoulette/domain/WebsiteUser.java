@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,11 @@ public class WebsiteUser {
     private List<Game> games = new ArrayList<>();
 
     public WebsiteUser(String username, String email, String unhashedPassword) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         this.userName = username;
         this.email = email;
-        this.hashedPassword = unhashedPassword;
+        this.hashedPassword = passwordEncoder.encode(unhashedPassword);
     }
 
 
