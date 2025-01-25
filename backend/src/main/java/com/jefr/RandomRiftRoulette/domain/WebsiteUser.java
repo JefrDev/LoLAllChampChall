@@ -1,7 +1,6 @@
 package com.jefr.RandomRiftRoulette.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
@@ -38,7 +37,4 @@ public class WebsiteUser {
         this.email = email;
         this.hashedPassword = passwordEncoder.encode(unhashedPassword);
     }
-
-
-
 }
