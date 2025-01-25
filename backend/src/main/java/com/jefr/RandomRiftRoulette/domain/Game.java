@@ -1,5 +1,6 @@
 package com.jefr.RandomRiftRoulette.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class Game {
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private GameStats gameStats;
     @ManyToOne
+    @JsonIgnore
     private WebsiteUser websiteUser;
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
