@@ -23,7 +23,6 @@ import java.util.List;
 @Setter
 public class WebsiteUser {
     @Id
-    @GeneratedValue
     @Size(min = 4,  max = 15, message = "Username must be between 4 and 15 characters long")
     private String userName;
     @Email
