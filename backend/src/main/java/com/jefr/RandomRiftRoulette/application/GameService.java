@@ -23,7 +23,7 @@ public class GameService {
         return gamerepo.findAllByWebsiteUserDisplayName(websiteUser.getDisplayName());
     }
 
-    public Game addGame(AddGameDTO addGameDTO) {
+    public Game addGame(AddGameDTO addGameDTO){
         WebsiteUser websiteUser = jwtService.getUserFromJWT();
 
         Game game = new Game(
@@ -39,11 +39,6 @@ public class GameService {
                 websiteUser,
                 addGameDTO.items()
         );
-        System.out.println(" hallo??");
-        System.out.println(game.getPlayedAt());
-        System.out.println(game.getGameStats().toString());
-        game = gamerepo.save(game);
-        System.out.println(game);
         return gamerepo.save(game);
     }
 }

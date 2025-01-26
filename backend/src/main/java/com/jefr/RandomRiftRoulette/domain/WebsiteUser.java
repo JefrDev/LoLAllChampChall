@@ -31,6 +31,7 @@ public class WebsiteUser implements UserDetails {
     private String email;
     private String password;
     @OneToMany(mappedBy = "websiteUser")
+    @JsonIgnore
     private List<Game> games;
 
     public WebsiteUser(String username, String email, String password) {

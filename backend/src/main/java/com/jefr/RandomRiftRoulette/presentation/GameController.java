@@ -33,10 +33,10 @@ public class GameController { private final GameService gameService;
 
     @PostMapping("")
     public ResponseEntity<Game> addGame(@RequestBody AddGameDTO addGameDTO) {
-        try{
-            return new ResponseEntity<>(gameService.addGame(addGameDTO), HttpStatus.CREATED);
+        try {
+            Game game = gameService.addGame(addGameDTO);
+            return new ResponseEntity<>(game, HttpStatus.CREATED);
         } catch (Exception e) {
-            System.out.println(" gaat er iets fout");
             HttpStatus statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             log.error(String.format("error with statuscode %s occurred: %s", statusCode, e));
             throw new ResponseStatusException(statusCode, e.getMessage());

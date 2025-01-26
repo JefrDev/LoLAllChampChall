@@ -1,5 +1,6 @@
 package com.jefr.RandomRiftRoulette.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jefr.RandomRiftRoulette.common.enums.OutcomeEnum;
 import com.jefr.RandomRiftRoulette.common.enums.SummonerSpellsEnum;
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GameStats {
     @Id
-    private long id;
+    private Long id;
     private OutcomeEnum outcome;
     @Enumerated
     private List<SummonerSpellsEnum> summonerSpells;
@@ -27,6 +28,9 @@ public class GameStats {
     private int level;
     private String gameTime;
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "game_id")
+    @JsonIgnore
     private Game game;
 
     public GameStats(OutcomeEnum outcome, List<SummonerSpellsEnum> summonerSpells, int kills, int deaths, int assists, int cs, int level, String gameTime, Game game) {
