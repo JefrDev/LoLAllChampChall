@@ -1,5 +1,8 @@
 spring.application.name=RandomRiftRoulette
 
+security.jwt.(HMAC HASH string of 256 bits)
+security.jwt.expiration-time=3600000
+
 spring.datasource.url=jdbc:postgresql://localhost:5432/RandomRiftRoulette
 spring.datasource.username=yourusername
 spring.datasource.password=yourpassword

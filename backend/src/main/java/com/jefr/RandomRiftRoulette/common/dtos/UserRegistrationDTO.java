@@ -1,4 +1,4 @@
-package com.jefr.RandomRiftRoulette.dtos;
+package com.jefr.RandomRiftRoulette.common.dtos;
 
 import jakarta.validation.constraints.*;
 
