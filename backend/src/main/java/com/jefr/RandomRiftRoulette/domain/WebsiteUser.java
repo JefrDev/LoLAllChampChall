@@ -2,6 +2,7 @@ package com.jefr.RandomRiftRoulette.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
@@ -18,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Setter
@@ -28,11 +30,14 @@ public class WebsiteUser implements UserDetails {
     @Email
     private String email;
     private String password;
+    @OneToMany(mappedBy = "websiteUser")
+    private List<Game> games;
 
     public WebsiteUser(String username, String email, String password) {
         this.displayName = username;
         this.email = email;
         this.password = password;
+        games = new ArrayList<>();
     }
 
     @Override

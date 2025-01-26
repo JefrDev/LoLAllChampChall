@@ -1,5 +1,6 @@
 package com.jefr.RandomRiftRoulette.presentation;
 
+import com.jefr.RandomRiftRoulette.common.dtos.UserResponseDTO;
 import com.jefr.RandomRiftRoulette.domain.WebsiteUser;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebsiteUserController {
 
     @GetMapping("/me")
-    public ResponseEntity<WebsiteUser> getAuthenticatedUser() {
+    public ResponseEntity<UserResponseDTO> getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WebsiteUser user = (WebsiteUser) authentication.getPrincipal();
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(new UserResponseDTO(user.getDisplayName(), user.getEmail()));
     }
 }
