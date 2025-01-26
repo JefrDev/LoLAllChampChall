@@ -18,22 +18,19 @@ import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Getter
 @Setter
 public class WebsiteUser implements UserDetails {
     @Id
     @Size(min = 4,  max = 15, message = "Username must be between 4 and 15 characters long")
-    private String userName;
+    private String displayName;
     @Email
     private String email;
     private String password;
-    @OneToMany(mappedBy = "websiteUser")
-    private List<Game> games = new ArrayList<>();
 
     public WebsiteUser(String username, String email, String password) {
-        this.userName = username;
+        this.displayName = username;
         this.email = email;
         this.password = password;
     }
@@ -50,7 +47,7 @@ public class WebsiteUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
     @Override

@@ -19,9 +19,6 @@ public class Game {
     private Date playedAt;
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private GameStats gameStats;
-    @ManyToOne
-    @JsonIgnore
-    private WebsiteUser websiteUser;
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 }
