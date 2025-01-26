@@ -1,12 +1,14 @@
 package com.jefr.RandomRiftRoulette.application;
 
 import com.jefr.RandomRiftRoulette.common.dtos.AddGameDTO;
+import com.jefr.RandomRiftRoulette.common.dtos.GameResponseDTO;
 import com.jefr.RandomRiftRoulette.data.GameRepo;
 import com.jefr.RandomRiftRoulette.domain.Game;
 import com.jefr.RandomRiftRoulette.domain.WebsiteUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,13 +19,14 @@ public class GameService {
     private final JwtService jwtService;
 
 
-    public List<Game> getMyGames() {
+    public List<GameResponseDTO> getMyGames() {
         WebsiteUser websiteUser = jwtService.getUserFromJWT();
 
-        return gamerepo.findAllByWebsiteUserDisplayName(websiteUser.getDisplayName());
+        List<Game> games = gamerepo.findAllByWebsiteUserDisplayName(websiteUser.getDisplayName());
+        return convertGameToDTO(games);
     }
 
-    public Game addGame(AddGameDTO addGameDTO){
+    public GameResponseDTO addGame(AddGameDTO addGameDTO){
         WebsiteUser websiteUser = jwtService.getUserFromJWT();
 
         Game game = new Game(
@@ -39,6 +42,42 @@ public class GameService {
                 websiteUser,
                 addGameDTO.items()
         );
-        return gamerepo.save(game);
+        game = gamerepo.save(game);
+        return convertGameToDTO(game);
+    }
+
+    public GameResponseDTO convertGameToDTO(Game game) {
+        return new GameResponseDTO(
+                game.getId(),
+                game.getGameStats().getGame().getPlayedAt(),
+                game.getGameStats().getOutcome(),
+                game.getGameStats().getSummonerSpells(),
+                game.getGameStats().getKills(),
+                game.getGameStats().getDeaths(),
+                game.getGameStats().getAssists(),
+                game.getGameStats().getCs(),
+                game.getGameStats().getLevel(),
+                game.getGameStats().getGameTime(),
+                game.getItems()
+                );
+    }
+    public List<GameResponseDTO> convertGameToDTO(List<Game> games) {
+        List<GameResponseDTO> gameDTOS = new ArrayList<>();
+        for(Game game : games) {
+            gameDTOS.add(new GameResponseDTO(
+                    game.getId(),
+                    game.getGameStats().getGame().getPlayedAt(),
+                    game.getGameStats().getOutcome(),
+                    game.getGameStats().getSummonerSpells(),
+                    game.getGameStats().getKills(),
+                    game.getGameStats().getDeaths(),
+                    game.getGameStats().getAssists(),
+                    game.getGameStats().getCs(),
+                    game.getGameStats().getLevel(),
+                    game.getGameStats().getGameTime(),
+                    game.getItems()
+            ));
+        }
+        return gameDTOS;
     }
 }

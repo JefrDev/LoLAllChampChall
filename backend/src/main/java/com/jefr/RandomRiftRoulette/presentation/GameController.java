@@ -3,6 +3,7 @@ package com.jefr.RandomRiftRoulette.presentation;
 
 import com.jefr.RandomRiftRoulette.application.GameService;
 import com.jefr.RandomRiftRoulette.common.dtos.AddGameDTO;
+import com.jefr.RandomRiftRoulette.common.dtos.GameResponseDTO;
 import com.jefr.RandomRiftRoulette.domain.Game;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import java.util.List;
 public class GameController { private final GameService gameService;
 
     @GetMapping("")
-    public ResponseEntity<List<Game>> getMyGames() {
+    public ResponseEntity<List<GameResponseDTO>> getMyGames() {
         try{
             return ResponseEntity.ok(gameService.getMyGames());
         } catch (Exception e) {
@@ -32,9 +33,9 @@ public class GameController { private final GameService gameService;
     }
 
     @PostMapping("")
-    public ResponseEntity<Game> addGame(@RequestBody AddGameDTO addGameDTO) {
+    public ResponseEntity<GameResponseDTO> addGame(@RequestBody AddGameDTO addGameDTO) {
         try {
-            Game game = gameService.addGame(addGameDTO);
+            GameResponseDTO game = gameService.addGame(addGameDTO);
             return new ResponseEntity<>(game, HttpStatus.CREATED);
         } catch (Exception e) {
             HttpStatus statusCode = HttpStatus.INTERNAL_SERVER_ERROR;

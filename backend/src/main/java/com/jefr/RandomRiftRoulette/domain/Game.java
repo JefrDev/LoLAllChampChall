@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private Date playedAt;
+    private LocalDate playedAt;
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private GameStats gameStats;
     @ManyToOne
@@ -32,7 +34,7 @@ public class Game {
     @Enumerated
     private List<ItemEnum> items = new ArrayList<>();
 
-    public Game(Date playedAt, OutcomeEnum outcomeEnum, List<SummonerSpellsEnum> summonerSpells, int kills, int deaths, int assists, int cs, int level, String gameLength, WebsiteUser websiteUser, List<ItemEnum> items) {
+    public Game(LocalDate playedAt, OutcomeEnum outcomeEnum, List<SummonerSpellsEnum> summonerSpells, int kills, int deaths, int assists, int cs, int level, String gameLength, WebsiteUser websiteUser, List<ItemEnum> items) {
         this.playedAt = playedAt;
         this.gameStats = new GameStats(outcomeEnum, summonerSpells, kills, deaths, assists, cs, level, gameLength, this);
         this.websiteUser = websiteUser;
