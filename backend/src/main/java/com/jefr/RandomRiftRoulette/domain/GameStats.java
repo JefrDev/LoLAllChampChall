@@ -27,8 +27,6 @@ public class GameStats {
     private int level;
     private String gameTime;
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "game_id")
     private Game game;
 
     public GameStats(OutcomeEnum outcome, List<SummonerSpellsEnum> summonerSpells, int kills, int deaths, int assists, int cs, int level, String gameTime, Game game) {
